@@ -1,0 +1,51 @@
+
+public class StringToInteger {
+
+	public static void main(String[] args) {
+
+		String arr[] = { "A99280439", "fy992804351", "wer4567812345t", "1wer34h678453214657" };
+		// A99280439 = 99280439
+		// fy992804351 = 992804351
+		// wer4567812345t = 4567812345
+		// 1wer34h678453214657 = 6784532146
+		for (int i = 0; i < arr.length; i++) {
+			String output = numberFromInput(arr[i]);
+			System.out.println(output);
+		}
+
+	}
+
+	public static String numberFromInput(String invoice) {
+		int j = 8;
+		String s = "";
+		for (int i = 0; i < invoice.length(); i++) {
+			if (j <= invoice.length()) {
+				String str1 = invoice.substring(i, j);
+				j++;
+				try {
+					Integer.parseInt(str1);
+					if (j - 1 <= invoice.length() - 1) {
+						if (Character.isDigit(invoice.charAt(j - 1))) {
+							str1 = str1 + Character.toString(invoice.charAt(j - 1));
+							if (j <= invoice.length() - 1) {
+								if (Character.isDigit(invoice.charAt(j))) {
+									str1 = str1 + Character.toString(invoice.charAt(j));
+								} else {
+									throw new NumberFormatException();
+								}
+							}
+						} else {
+							throw new NumberFormatException();
+						}
+					}
+					s = "" + str1;
+					break;
+				} catch (NumberFormatException e) {
+					continue;
+				}
+			}
+		}
+		return s;
+
+	}
+}

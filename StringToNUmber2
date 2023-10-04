@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class StringToInteger2 {
+
+	public static void main(String[] args) {
+		String invoice = "A99280439fy992804351wer4567812345t1wer34h6784532"
+				+ "uife32423786sdaf123456789hjvvv1234567891rr";
+		// A99280439fy9928043512wer4567812345678t1wer34h6784532uife32423786sdaf123456789hjvvv1234567891rr
+		// 99280439
+		// 992804351
+		// 4567812345
+		// 32423786
+		// 123456789
+		// 1234567891
+		int j = 8;
+		List<String> opList = new ArrayList<String>();
+		String s = "";
+		int lengthOfString = invoice.length();
+		for (int i = 0; i < lengthOfString; i++) {
+			if (Character.isDigit(invoice.charAt(i))) {
+				s = s + Character.toString(invoice.charAt(i));
+				if (s.length() == 8) {
+					if (i + 1 < lengthOfString && Character.isDigit(invoice.charAt(i + 1))) {
+						s = s + Character.toString(invoice.charAt(i + 1));
+						i = i + 1;
+						if (i + 1 < lengthOfString && Character.isDigit(invoice.charAt(i + 1))) {
+							s = s + Character.toString(invoice.charAt(i + 1));
+							opList.add(s);
+							s = "";
+							i = i + 1;
+						} else {
+							opList.add(s);
+							s = "";
+						}
+					} else {
+						opList.add(s);
+						s = "";
+					}
+				}
+			} else {
+				s = "";
+			}
+		}
+		System.out.println(opList.toString());
+	}
+
+}
